@@ -70,25 +70,19 @@ public:
  int main()
 {
     queue queue;
-    queue.push(5);
-    queue.push(1);
-    queue.push(3);
-    queue.push(4);
-    queue.push(8);
-    cout << queue.pop() << " " << queue.pop() << " " << queue.pop() << " " << queue.pop();
-    // ifstream fin ("queue.in.txt");
-    // ofstream fout("queue.out.txt");
-    // int n, chisl;
-    // fin >> n;
-    // char znak;
-    // for (int i=0; i<n; i++)
-    // {
-    //     fin >> znak;
-    //     if (znak=='+')
-    //     {
-    //         fin >> chisl;
-    //         queue.push(chisl);
-    //     }
-    //     else fout << queue.pop() << endl;
-    // }
+    ifstream fin ("queue.in.txt");
+    ofstream fout("queue.out.txt");
+    int n, chisl;
+    fin >> n;
+    char znak;
+    for (int i=0; i<n; i++)
+    {
+        fin >> znak;
+        if (znak=='+')
+        {
+            fin >> chisl;
+            queue.push(chisl);
+        }
+        else fout << queue.pop() << endl;
+    }
 }
