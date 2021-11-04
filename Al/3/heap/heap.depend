@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1635103264 source:c:\users\Иван\documents\codeblocks\heap\main.cpp
+	"radixsort.hpp"
+	"heap_demo.hpp"
+
+1635103242 source:c:\users\Иван\documents\codeblocks\heap\radixsort.cpp
+	<iostream>
+	<vector>
+	"radixsort.hpp"
+
+1635097021 c:\users\Иван\documents\codeblocks\heap\radixsort.cpp
+	<iostream>
+
+1635097334 c:\users\Иван\documents\codeblocks\heap\heap_demo.cpp
+	<time.h>
+	<vector>
+	<cstdlib>
+	<iostream>
+
+1635102062 source:c:\users\Иван\documents\codeblocks\heap\heap_demo.cpp
+	<time.h>
+	<vector>
+	<cstdlib>
+	<iostream>
+	"radixsort.hpp"
+
+1635097328 c:\users\Иван\documents\codeblocks\heap\radixsort.h
+	"radixsort.cpp"
+
+1635097331 c:\users\Иван\documents\codeblocks\heap\heap_demo.h
+	"heap_demo.cpp"
+
+1635097792 c:\users\Иван\documents\codeblocks\heap\radixsort.hpp
+
+1635097778 c:\users\Иван\documents\codeblocks\heap\heap_demo.hpp
+
