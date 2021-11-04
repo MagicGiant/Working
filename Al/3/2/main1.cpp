@@ -37,7 +37,7 @@ void creat_pyramid()
 void sort_pyramid ()
 {
     creat_pyramid();
-    cout<<"________________________"<<endl;
+    //cout<<"________________________"<<endl;
     int n=arr.size();
     for (int i=n-1; i>=0; i--)
     {
