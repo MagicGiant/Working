@@ -1,0 +1,4 @@
+﻿  main.c
+C:\Users\Obidj\Documents\Working\PR\5\5\5\main.c(35,15): warning C4013: strcmp: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Obidj\Documents\Working\PR\5\5\5\main.c(29): warning C4715: new_check: значение возвращается не при всех путях выполнения
+  5.vcxproj -> C:\Users\Obidj\Documents\Working\PR\5\5\x64\Debug\5.exe
