@@ -1,0 +1,4 @@
+﻿  huffman.c
+C:\Users\Obidj\OneDrive\Рабочий стол\tatau\MakeList.h(4,1): warning C4005: bool: изменение макроопределения
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\include\stdbool.h(15): message : см. предыдущее определение "bool"
+  ntnt.vcxproj -> C:\Users\Obidj\Documents\Working\PR\5\ntnt\x64\Debug\ntnt.exe
