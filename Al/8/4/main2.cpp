@@ -1,8 +1,19 @@
 #include <iostream>
-/*Other functions*/
+#include <fstream>
+#include <vector>
 using namespace std;
-int main(int argc, char* argv[])
+
+int main()
 {
-    /*TEIL*/
+    ifstream fin ("component.in");
+    ofstream fout ("component.out");
+    int n, m;
+    fin >> n >> m;
+    vector <int> dot (n);
+    for (int i = 0; i < count; i++)
+    {
+        /* code */
+    }
+    
     return 0;
 }
