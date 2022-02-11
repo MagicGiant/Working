@@ -6,7 +6,7 @@ using namespace std;
 class edge
 {
 private:
-    queue <int> path;
+    vector <int> path;
 public:
     bool have_friend()
     {
@@ -16,22 +16,37 @@ public:
     }
     void push(int data)
     {
-        path.push(data);
+        path.resize(path.size()+1);
+        path[path.size()-1]=data;
     }
     int del()
     {
-        int ch = path.front();
-        path.pop();
+        int ch = path[path.size()-1];
+        path.resize(path.size()-1);
         return ch;
+    }
+    int operator [] (int it)
+    {
+        if (it>=path.size())
+            return -1;
+        return path[it];
     }
 };
 
 int end_sort(vector <edge>& edg, int it, int n)
 {
     vector <bool> friendly_dot(n, false);
+    
     for (int i = 0; i < n; i++)
-        while (edg[i].have_friend())
-            friendly_dot[edg[i].del()] = true;
+    {
+        int j=0;
+        while (edg[i][j]!=-1)
+        {
+            friendly_dot[edg[i][j]] = true;
+            j++;
+        }
+    }
+        
     for (int i = 0; i < n; i++)
         if (!friendly_dot[i])
         {
