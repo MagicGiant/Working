@@ -8,6 +8,8 @@ class edge
 private:
     vector <int> path;
 public:
+    ~edge()
+    {}
     bool have_friend()
     {
         if (path.size() > 0)
@@ -56,6 +58,8 @@ int main()
         fin >> left >> right;
         left--;
         right--;
+        if (left == right || (dot[left]!=-1 && dot[left]==dot[right]))
+            continue;
         if (dot[left] != -1 && dot[right] != -1)
         {
             int j = edg[left].get_size();
