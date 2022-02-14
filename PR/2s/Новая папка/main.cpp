@@ -12,6 +12,7 @@ public:
     {}
     dot (int ur_x, int ur_y): x(ur_x), y(ur_y)
     {}
+    dot ()
     void set_O (int ur_x, int ur_y)
     {
         x=ur_x;

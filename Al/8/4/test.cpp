@@ -1,9 +1,11 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 int main()
 {
-    bool i=0;
-    cout << sizeof(i);
+    vector < vector<int>> arr (10);
+    arr[1].resize(arr[1].size()+2);
+    cout << arr[1].size();
     return 0;
 }

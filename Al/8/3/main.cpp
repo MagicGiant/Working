@@ -11,27 +11,29 @@ int main()
     vector <vector <int>> matrix (m, vector <int> (2));
     for (int i=0; i<m; i++)
             fin >> matrix[i][0] >> matrix[i][1];
-    for (int i=0; i<m-1; i++)
-        for (int j=1; j<m; j++)
+    for (int i=1; i<m; i++)
+        for (int j=0; j<i; j++)
         {
             
             if (matrix[i][0]==matrix[j][1] && matrix[i][1]==matrix[j][0] )
             {
                 fout << "YES";
+                cout <<1;
                 return 0;
             }
-            if (matrix[i][0]==matrix[j][1] && matrix[i][0]==matrix[j][1])
+            if (matrix[i][0]==matrix[j][0] && matrix[i][1]==matrix[j][1])
             {
                 fout << "YES";
+                cout << i << " " << j;
+                return 0;
+            }
+            if (matrix[i][0]==matrix[i][1] && matrix[j][0]==matrix[j][1] && matrix[i][0]==matrix[j][0])
+            {
+                fout << "YES";
+                cout << 3;
                 return 0;
             }
         }
-    for (int i=0; i<m; i++)
-        if(matrix[i][0]==matrix[i][1])
-            {
-                fout << "yes";
-                return 0;
-            }
     fout << "NO";
     return 0;
 }
