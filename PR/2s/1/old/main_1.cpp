@@ -32,6 +32,7 @@ public:
     }
     void set_O (int x, int y)
     {
+        
         x_=x;
         y_=y;
     }
