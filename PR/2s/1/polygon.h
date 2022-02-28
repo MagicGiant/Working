@@ -41,7 +41,7 @@ protected:
                     if (intersection(arr_dot_[i], arr_dot_[i+1], arr_dot_[j], arr_dot_[j+1]))
                     {
                         std::cout<<"*ERROR! IT IS NOT CLOSED BROKEN LINE.\n";
-                        std::cout<<"\t\tTHIS FIGUR HAVE INTERSACTION SEGMENT\n";
+                        std::cout<<"THIS FIGUR HAVE INTERSACTION SEGMENT\n";
                         return false;
                     }
                 }

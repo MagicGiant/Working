@@ -2,13 +2,12 @@
 #include "figur.h"
 int main()
 {
-    std::vector <dot> arr(5);
+    std::vector <dot> arr(4);
     arr[0].set_O(0, 0);
-    arr[1].set_O(0, 3); 
-    arr[2].set_O(2, 3);
-    arr[3].set_O(2, 0);
-    arr[4].set_O(0, 0);
-    trapezoid line (arr);
+    arr[1].set_O(2, 0); 
+    arr[2].set_O(1, 3);
+    arr[3].set_O(0, 0);
+    right_triangle line (arr);
     std::cout << line.square();
     return 0;
 }
