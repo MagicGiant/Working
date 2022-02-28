@@ -6,10 +6,9 @@ class closed_broken_line: public broken_line
 protected:
     using broken_line :: set_dot;
     using broken_line :: length;
-    
     virtual bool rule ()
     {
-        if (size_dot_<3)
+        if (size_dot_<4)
         {
             std::cout << "*ERROR! THIS BROKEN LINE NEED TO HAVE THREE SEGMENT\n";
             return false;
