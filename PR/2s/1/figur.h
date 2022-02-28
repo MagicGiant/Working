@@ -1,12 +1,12 @@
-#include "poligon.h"
+#include "polygon.h"
 class triangle: public polygon
 {
 private:
     virtual bool rule ()
     {
-        if (size_dot_<4)
+        if (size_dot_!=4)
         {
-            std::cout << "*ERROR! THIS BROKEN LINE NEED TO HAVE THREE SEGMENT\n";
+            std::cout << "*ERROR! THIS BROKEN LINE NEED TO HAVE ONLY THREE SEGMENT\n";
             return false;
         }
         if (arr_dot_[0].get_x()!=arr_dot_[size_dot_-1].get_x() || arr_dot_[0].get_y()!=arr_dot_[size_dot_-1].get_y())
@@ -14,24 +14,9 @@ private:
             std::cout<<"*ERROR! THIS BROKEN LINE NOT CLOSED\n";
             return false;
         }
-        if (size_dot_>4)
-            for (int i=2; i<size_dot_-1; i++)
-            {
-                for (int j=0; j<i; j++)
-                {
-                    if (intersection(arr_dot_[i], arr_dot_[i+1], arr_dot_[j], arr_dot_[j+1]))
-                    {
-                        std::cout<<"*ERROR! IT IS NOT CLOSED BROKEN LINE.\n";
-                        std::cout<<"\t\tTHIS FIGUR HAVE INTERSACTION SEGMENT";
-                        return false;
-                    }
-                }
-
-            }
         return true;
     }
 public:
-    public:
     triangle()
     {}
     triangle (std::vector <dot> &arr_dot)
@@ -64,18 +49,74 @@ public:
         arr_dot_=other.get_arr();
         size_dot_=other.size_dot_;
     }
-    int square()
+};
+class trapezoid: public polygon
+{
+private:
+    bool parallel (dot &a1, dot &a2, dot &b1, dot &b2)
     {
-        if (!rule())
-            return -1;
-        int s=0;
-        for (int i=0; i<size_dot_-1; i++)
-            s+=arr_dot_[i].get_x()*arr_dot_[i+1].get_y();
-        s+=arr_dot_[size_dot_-1].get_x()*arr_dot_[0].get_y();
-        for (int i=0; i<size_dot_-1; i++)
-            s-=arr_dot_[i+1].get_x()*arr_dot_[i].get_y();
-        s-=arr_dot_[0].get_x()*arr_dot_[size_dot_-1].get_y();
-        s/=2;
-        return s<0 ? s*=-1 : s;
-    } 
+        double k1 = (a2.get_y()-a1.get_y())/(a2.get_x()-a1.get_x());
+        double k2 = (b2.get_y()-b1.get_y())/(b2.get_x()-b1.get_x());
+        if (k1==k2)
+            return true;
+        return false; 
+    }
+    virtual bool rule ()
+    {
+        if (size_dot_<4)
+        {
+            std::cout << "*ERROR! THIS BROKEN LINE NEED TO HAVE THREE SEGMENT\n";
+            return false;
+        }
+        if (arr_dot_[0].get_x()!=arr_dot_[size_dot_-1].get_x() || arr_dot_[0].get_y()!=arr_dot_[size_dot_-1].get_y())
+        {
+            std::cout<<"*ERROR! THIS BROKEN LINE NOT CLOSED\n";
+            return false;
+        }
+
+        bool par1, par2;
+        par1=parallel(arr_dot_[0], arr_dot_[1], arr_dot_[2], arr_dot_[3]);
+        par2=parallel(arr_dot_[0], arr_dot_[3], arr_dot_[1], arr_dot_[2]);
+        if (par1 && par2 || !par1 && !par2)
+        {
+            std::cout<<"*ERROR! TRAPESOID NEED TO HAVE TWO PARALLEL SEGMENT\n";
+            return false;
+        }
+
+        return true;
+    }
+public:
+    trapezoid()
+    {}
+    trapezoid (std::vector <dot> &arr_dot)
+    {
+        std::cout << "!!!!!";
+        arr_dot_=arr_dot;
+        size_dot_=arr_dot.size();
+    }
+    trapezoid (closed_broken_line &other)
+    {
+        arr_dot_=other.get_arr();
+        size_dot_=other.size_dot_;
+    }
+    trapezoid (broken_line &other)
+    {
+        arr_dot_=other.get_arr();
+        size_dot_=other.size_dot_;
+    }
+    trapezoid (polygon &other)
+    {
+        arr_dot_=other.get_arr();
+        size_dot_=other.size_dot_;
+    }
+    trapezoid (trapezoid &other)
+    {
+        arr_dot_=other.get_arr();
+        size_dot_=other.size_dot_;
+    }
+    void operator = (trapezoid &other)
+    {
+        arr_dot_=other.get_arr();
+        size_dot_=other.size_dot_;
+    }
 };
