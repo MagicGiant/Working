@@ -9,15 +9,33 @@
 
 using namespace std;
 
-ifstream fin ("topsort.in");
-ofstream fout ("topsort.out");
+ifstream fin ("cycle.in");
+ofstream fout ("cycle.out");
 
 vector <stack<int>> matrix;
 vector <char> color;
-stack <int> sort;
+stack <int> cycle;
+
+int found_cycle=-1;
 
 void f (int dot)
 {
+    if (found_cycle!=-1)
+    {
+        there:
+        cycle.push(dot);
+        if (found_cycle==dot)
+        {
+            fout << "YES\n";
+            while (!cycle.empty())
+            {
+                fout << cycle.top()+1 << " ";
+                cycle.pop();
+            }
+            exit(0);
+        }
+        return;
+    }
     if (color[dot]==white)
         while (!matrix[dot].empty())
         {
@@ -25,16 +43,16 @@ void f (int dot)
             matrix[dot].pop();
             color[dot]=gray;
             f(new_dot);
+            if (found_cycle!=-1)
+                goto there;
         }
     else if (color[dot]==black)
         return;
     else if (color[dot]==gray)
     {
-        fout << "-1";
-        exit(0);
+        found_cycle=dot;
+        return;
     }
-    color[dot]=black;
-    sort.push(dot+1);
 }
 
 void dfs (int n)
@@ -42,6 +60,7 @@ void dfs (int n)
     for (int i=0; i<n; i++)
         if (color[i]==white)
             f(i);
+    fout << "NO";
 }
 
 
@@ -64,10 +83,5 @@ int main()
     }
 
     dfs(n);
-    for (int i=0; i<n; i++)
-    {
-        fout << sort.top() << " ";
-        sort.pop();
-    }
     return 0;
 }
