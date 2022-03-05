@@ -27,42 +27,55 @@ int main()
         left--;
         right--;
         matrix[left].push(right);
+        matrix[right].push(left);
     }
+    
+    for (int i=0; i<n; i++)
+    {   
+        if (teams[i]!=white)
+            continue;
 
-    stack <int> eque;
-    eque.push(0);
+        stack <int> eque;
+        eque.push(i);
 
-    while (!eque.empty())
-    {
-        int date=eque.top();
-        eque.pop();
-        while (!matrix[date].empty())
+        while (!eque.empty())
         {
-            int new_date=matrix[date].top();
-            matrix[date].pop();
-            if ( teams[date]==teams[new_date] && teams[date]==white)
+            int date=eque.top();
+            eque.pop();
+            while (!matrix[date].empty())
             {
-                teams[date]=red;
-                teams[new_date]=blue;
-                eque.push(new_date);
-            }
-            else if (teams[date]==red && teams[new_date]==white)
-            {
-                teams[new_date]=blue;
-                eque.push(new_date);
-            }
-            else if (teams[date]==blue && teams[new_date]==white)
-            {
-                teams[new_date]=red;
-                eque.push(new_date);
-            }
-            else if (teams[date]==teams[new_date])
-            {
-                cout << "NO";
-                return 0;
+                int new_date=matrix[date].top();
+                matrix[date].pop();
+                if (date==new_date)
+                {
+                    fout << "NO";
+                    return 0;
+                }
+                else if ( teams[date]==teams[new_date] && teams[date]==white)
+                {
+                    teams[date]=red;
+                    teams[new_date]=blue;
+                    eque.push(new_date);
+                }
+                else if (teams[date]==red && teams[new_date]==white)
+                {
+                    teams[new_date]=blue;
+                    eque.push(new_date);
+                }
+                else if (teams[date]==blue && teams[new_date]==white)
+                {
+                    teams[new_date]=red;
+                    eque.push(new_date);
+                }
+                else if (teams[date]==teams[new_date])
+                {
+                    fout << "NO";
+                    return 0;
+                }
             }
         }
     }
-    cout << "YES";
+    
+    fout << "YES";
     return 0;
 }
