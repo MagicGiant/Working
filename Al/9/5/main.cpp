@@ -8,40 +8,42 @@
 
 using namespace std;
 
-ifstream fin ("hamiltonian.in");
-ofstream fout ("hamiltonian.out");
+ifstream fin("hamiltonian.in");
+ofstream fout("hamiltonian.out");
 
 vector <stack<int>> matrix;
+vector <stack<int>> matrix_clone;
 vector <char> color;
+
 int dot_number;
 int n;
 
-void f (int date)
+void f(int date)
 {
-    if (color[date]==white)
+    if (color[date] == white)
         while (!matrix[date].empty())
         {
-            int new_dot=matrix[date].top();
+            int new_dot = matrix[date].top();
             matrix[date].pop();
-            color[date]=gray;
+            color[date] = gray;
             dot_number++;
             f(new_dot);
         }
-    if (dot_number==n)
+    if (dot_number == n)
     {
-        fout <<"YES";
+        fout << "YES";
         exit(0);
     }
-    
     dot_number--;
-    color[date]=white;
+    color[date] = white;
 }
 
-void dfs ()
+void dfs()
 {
-    for (int i=0; i<n; i++)
+    for (int i = 0; i < n; i++)
     {
-        dot_number=1;
+        matrix = matrix_clone;
+        dot_number = 1;
         f(i);
     }
 }
@@ -53,15 +55,16 @@ int main()
     fin >> n >> m;
 
     matrix.resize(n);
+    matrix_clone.resize(n);
     color.resize(n);
 
-    for (int i=0; i<m; i++)
+    for (int i = 0; i < m; i++)
     {
         int left, right;
         fin >> left >> right;
         left--;
         right--;
-        matrix[left].push(right);
+        matrix_clone[left].push(right);
     }
 
     dfs();
