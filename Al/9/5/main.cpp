@@ -29,6 +29,7 @@ void f(int date)
             dot_number++;
             f(new_dot);
         }
+    
     if (dot_number == n)
     {
         fout << "YES";

@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <stack>
+#include <queue>
 
 #define white 0
 #define gray 1
@@ -15,11 +16,12 @@ vector <char> color;
 
 vector <int> clases;
 stack <int> sort_dot;
+queue <int> end_sort;
 
 int it = 0;
 int max_it = 0;
 
-void f_1(int date)
+void sort_matrix(int date)
 {
     if (color[date] == white)
         while (!back_matrix[date].empty())
@@ -27,7 +29,7 @@ void f_1(int date)
             int new_date = back_matrix[date].top();
             back_matrix[date].pop();
             color[date] = gray;
-            f_1(new_date);
+            sort_matrix(new_date);
         }
     else if (color[date] == gray || color[date] == black)
         return;
@@ -36,15 +38,15 @@ void f_1(int date)
     sort_dot.push(date);
 }
 
-void f_2(int date)
+void classed(int date)
 {
     if (color[date] == white)
-        while (!matrix[date].empty())
+        while (!back_matrix[date].empty())
         {
-            int new_date = matrix[date].top();
-            matrix[date].pop();
+            int new_date = back_matrix[date].top();
+            back_matrix[date].pop();
             color[date] = gray;
-            f_2(new_date);
+            classed(new_date);
         }
     else if (color[date] == gray || color[date] == black)
         return;
@@ -53,19 +55,32 @@ void f_2(int date)
     clases[date] = it;
 }
 
+void top_sort(int date)
+{
+    if (color[date]==white)
+        while (!matrix[date].empty())
+        {
+            int new_dot=matrix[date].top();
+            matrix[date].pop();
+            color[date]=gray;
+            top_sort(new_dot);
+        }
+    else if (color[date]==black || color[date]==gray)
+        return;
+        
+    color[date]=black;
+    end_sort.push(date+1);
+}
 void dfs(int n)
 {
     for (int i = 0; i < n; i++)
         if (color[i] == white)
-        {
-            it++;
-            f_1(i);
-        }
-
-    max_it = it;
+            sort_matrix(i);
 
     for (int i = 0; i < n; i++)
         color[i] = white;
+
+    back_matrix=matrix;
 
     for (int i = 0; i < n; i++)
     {
@@ -73,10 +88,18 @@ void dfs(int n)
         sort_dot.pop();
         if (color[date] == white)
         {
-            f_2(date);
-            it--;
+            classed(date);
+            it++;
         }
     }
+
+    for (int i = 0; i < n; i++)
+        color[i] = white;
+
+    for (int i=0; i<n; i++)
+        if (color[i]==white)
+            top_sort(i);
+
 }
 int main()
 {
@@ -103,9 +126,14 @@ int main()
 
     dfs(n);
 
-    fout << max_it << endl;
+    fout << it << endl;
     for (int i = 0; i < n; i++)
-        fout << clases[i] << " ";
+    {
+        int date;
+        date=end_sort.front();
+        end_sort.pop();
+        fout << clases[date-1] + 1 << " ";
+    }
 
     return 0;
 }
