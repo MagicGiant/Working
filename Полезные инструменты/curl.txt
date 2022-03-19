@@ -1,0 +1,1 @@
+libcurl_a.lib, Ws2_32.lib, Crypt32.lib, Wldap32.libи Normaliz.lib

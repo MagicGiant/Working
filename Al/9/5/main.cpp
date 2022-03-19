@@ -1,77 +1,61 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-#include <stack>
-
-#define white 0
-#define gray 1
+#include <queue>
 
 using namespace std;
 
-ifstream fin("hamiltonian.in");
-ofstream fout("hamiltonian.out");
 
-vector <vector <int>> matrix;
-vector <char> IMcolor;
-vector <char> color;
+vector<vector<int>> arr;
 
-int dot_number;
-int n;
+int n, new_n=0;
 
-void f(int date)
+    ifstream fin ("hamiltonian.in");
+    ofstream fout ("hamiltonian.out");
+void dfs(int i)
 {
     int it=0;
-    if (color[date] == white)
-        while (matrix[date].size()!=it)
-        {
-            int new_dot = matrix[date][it];
-            color[date] = gray;
-            IMcolor[date] = gray;
-            it++;
-            dot_number++;
-            f(new_dot);
-        }
-    
-    if (dot_number == n)
+    new_n++;
+    int k = arr[i].size();
+
+    while (k!=it)
+    {
+        int new_i = arr[i][it];
+        it++;
+        dfs(new_i);
+    }
+
+    if (n==new_n)
     {
         fout << "YES";
         exit(0);
     }
-    dot_number--;
-    color[date] = white;
+
+    new_n--;
 }
 
-void dfs()
-{
-    for (int i = 0; i < n; i++)
-    {   
-        if (IMcolor[i]==gray)
-            continue;
-        dot_number = 1;
-        f(i);
-    }
-}
 
 int main()
 {
-
-    int  m;
+    ios::sync_with_stdio(false);
+    int m;
     fin >> n >> m;
-
-    matrix.resize(n);
-    color.resize(n, white);
-    IMcolor.resize(n, white);
-
-    for (int i = 0; i < m; i++)
+    arr.resize(n);
+    vector<vector<int>> par(n);
+    for(int i = 0; i < m; i++)
     {
-        int left, right;
-        fin >> left >> right;
-        left--;
-        right--;
-        matrix[left].push_back(right);
+        int a, b;
+        fin >> a >> b;
+        arr[a - 1].push_back(b - 1);
+        par[b - 1].push_back(a - 1);
     }
-
-    dfs();
+    int g = 0;
+    while(g < n && par[g].size() > 0)
+    {
+        g = par[g][0];
+    }
+    
+    dfs(g);
 
     fout << "NO";
     return 0;
